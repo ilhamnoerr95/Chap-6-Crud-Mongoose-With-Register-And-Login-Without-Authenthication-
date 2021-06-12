@@ -30,16 +30,26 @@ exports.getScores = async (req,res,next)=>{
     }else {
         message = null
     }
-
+    let dataScores = []
     await history.find({user_id:ObjectId(userId)}).exec((err,History)=>{
+            for(let score of History){
+                dataScores.push({
+                    _id: score._id,
+                    user_id: score.user_id,
+                    scores: score.scores,
+                    createdAt: score.createdAt
+                })
 
+        }
         console.log(chalk.blue('masuk Score!'))
         console.log(History)
 
         res.render('score',{
-            historyUser: History,
+            historyUser: dataScores,
             title: 'Scores',
-            errorMessage: message
+            userId,
+            errorMessage: message,
+            // addHistory: History
         })
     })
 }
@@ -74,24 +84,35 @@ exports.getEdit= (req,res,next)=>{
 //POST EDIT DATA
 //! KENAPA ADA REQ.PARAMS.USERID DI POST, KETIKA DI SUBMIT(REQ CLIENT untuk server) TERHADAP
 // ! score yg ingin di edit berdasarkan userId
-exports.postEdit = (req,res,next)=>{
+exports.postEdit = async (req,res,next)=>{
     //TODO NANGKEP PARAMETER
     const idUser = req.params.idUser;
 
     //TODO REQ BODY PADA FORM
     const {scores} = req.body;
     console.log(req.body);
-    
-history.findOneAndUpdate({user_id:ObjectId(idUser.toString())})
-.then(histori=>{
-    histori.scores = scores;
-    return histori.save();
-})
-.then(result=>{
-    console.log(chalk.green('UPDATE SCORE!'))
-    res.status(200).redirect('/scores/'+ idUser)
-})
-    .catch(err=> console.log(err));
+    let listScore = []
+
+await history.findOneAndUpdate({user_id:ObjectId(idUser.toString())})
+        .then(History=>{
+            listScore.push({
+                _id: History._id,
+                user_id: History.user_id,
+                scores: History.scores,
+                createdAt: History.createdAt
+            })
+            History.scores = scores;
+            return History.save();
+        })
+        // .then(histori=>{
+        //     histori.scores = scores;
+        //     return histori.save();
+        // })
+        .then(result=>{
+            console.log(chalk.green('UPDATE SCORE!'))
+            res.status(200).redirect('/scores/'+ idUser)
+        })
+            .catch(err=> console.log(err));
 
 }
 
