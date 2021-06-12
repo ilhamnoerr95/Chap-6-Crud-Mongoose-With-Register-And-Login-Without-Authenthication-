@@ -1,0 +1,35 @@
+<%- include('./include/head') %> 
+<div class="container mt-5">
+    <h1 class="text-center mb-3 custom">BIODATA</h1>
+    <table class="table table-dark ">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Scores</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% bio.forEach(biodata=>{ %> 
+        
+          <tr>
+            <th scope="row"><%= biodata.user_id%> </th>
+            <td><%= biodata.name %> </td>
+            <td><%= biodata.username %> </td>
+            <td><%= biodata.email %> </td>
+            <td>
+              <a href="/scores/<%= biodata.user_id%>" class="btn btn-primary">
+                <i class="fas fa-star-half-alt"></i>
+              </a>
+            </td>
+          </tr>
+          <% }) %> 
+        </tbody>
+      </table>
+</div>
+
+
+
+<%- include('./include/foot') %> 

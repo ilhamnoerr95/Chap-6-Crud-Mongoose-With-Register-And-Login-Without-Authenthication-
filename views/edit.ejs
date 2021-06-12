@@ -1,0 +1,17 @@
+<%- include('./include/head') %> 
+<div class="container m-auto display-center">
+    <form action="/<%= userId %>" method="POST">
+        <div class="card mt-5 card-body" style="width:500px">
+            <h1 class="text-center mb-3">EDIT SCORES</h1>
+            <div class="form-group">
+                <label for="scores">Scores</label>
+                <input type="text" name="scores" id="scores" class="form-control" placeholder="Your Scores"
+                    aria-describedby="helpId">
+            </div>
+     
+         <button type="submit" class="btn btn-outline-primary">Submit</button>
+        </div>
+    </form>
+   
+</div>
+<%- include('./include/foot') %> 

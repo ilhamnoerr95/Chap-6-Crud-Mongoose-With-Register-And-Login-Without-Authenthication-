@@ -1,0 +1,20 @@
+<%- include('./include/head') %> 
+<div class="container m-auto display-center">
+    <% if(errorMessage){ %>
+        <%- include('./include/message.ejs') %>
+        <% } %>
+    <form  style="width:500px" action="/scores/<%= userId%>/add" method="POST">
+        <h1 class="text-center mt-3">Add Scores</h1>
+        <div class="modal-body">
+            <div class="form-group my1">
+              <label for="scores">Scores</label>
+              <input type="text" name="scores" id="scores" class="form-control" placeholder="" aria-describedby="helpId">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Submit</button>
+          </div>
+    </form>
+</div>
+<%- include('./include/foot') %> 
